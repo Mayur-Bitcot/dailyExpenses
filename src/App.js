@@ -1,25 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import ExpenseForm from "./ExpenseForm";
+import IncomeForm from "./IncomeForm";
+import Analytics from "./Analytics"; // Import Analytics component
+import React, { useState } from "react";
 
-function App() {
+const App = () => {
+  const [showIncomeForm, setShowIncomeForm] = useState(false);
+
+  const toggleForm = () => {
+    setShowIncomeForm(!showIncomeForm); // Toggle between forms
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <button onClick={toggleForm}>
+        {showIncomeForm ? "Go to Expense Form" : "Go to Income Form"}
+      </button>
+
+      {/* Display the respective form based on the toggle */}
+      {showIncomeForm ? <IncomeForm /> : <ExpenseForm />}
+
+      {/* Always show the Analytics section */}
+      <Analytics />
     </div>
   );
-}
+};
 
 export default App;
