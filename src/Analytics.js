@@ -3,36 +3,23 @@ import { database } from "./firebase";
 import { ref, onValue } from "firebase/database";
 
 const Analytics = () => {
-  const [totalIncome, setTotalIncome] = useState(0);
-  const [totalExpenses, setTotalExpenses] = useState(0);
+  const [totals, setTotals] = useState({ income: 0, expenses: 0 });
 
   useEffect(() => {
-    const incomeRef = ref(database, "incomes");
-    const expenseRef = ref(database, "expenses");
+    const fetchData = (path, key) => {
+      const dataRef = ref(database, path);
+      onValue(dataRef, (snapshot) => {
+        const data = snapshot.val();
+        const total = data ? Object.values(data).reduce((sum, item) => sum + Number(item.amount), 0) : 0;
+        setTotals((prevTotals) => ({ ...prevTotals, [key]: total }));
+      });
+    };
 
-    // Fetch total income
-    onValue(incomeRef, (snapshot) => {
-      const data = snapshot.val();
-      let total = 0;
-      if (data) {
-        total = Object.values(data).reduce((sum, item) => sum + Number(item.amount), 0);
-      }
-      setTotalIncome(total);
-    });
-
-    // Fetch total expenses
-    onValue(expenseRef, (snapshot) => {
-      const data = snapshot.val();
-      let total = 0;
-      if (data) {
-        total = Object.values(data).reduce((sum, item) => sum + Number(item.amount), 0);
-      }
-      setTotalExpenses(total);
-      
-    });
+    fetchData("incomes", "income");
+    fetchData("expenses", "expenses");
   }, []);
 
-  const availableBalance = totalIncome - totalExpenses;
+  const availableBalance = totals.income - totals.expenses;
 
   return (
     <div>
@@ -47,8 +34,8 @@ const Analytics = () => {
         </thead>
         <tbody>
           <tr>
-            <td>₹{totalIncome}</td>
-            <td>₹{totalExpenses}</td>
+            <td>₹{totals.income}</td>
+            <td>₹{totals.expenses}</td>
             <td>₹{availableBalance}</td>
           </tr>
         </tbody>
