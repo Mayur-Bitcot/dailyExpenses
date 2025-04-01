@@ -28,6 +28,7 @@ const Analytics = () => {
         total = Object.values(data).reduce((sum, item) => sum + Number(item.amount), 0);
       }
       setTotalExpenses(total);
+      
     });
   }, []);
 
