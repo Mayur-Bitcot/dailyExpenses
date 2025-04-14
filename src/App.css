@@ -1,7 +1,9 @@
 .App {
   text-align: center;
 }
-
+div#root {
+  width: 100%;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -15,7 +17,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +46,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+
   margin: 0;
 }
 
@@ -168,4 +170,11 @@ table th {
 .balance h3:before {
   content: "Balance: ";
   font-size: 22px;
+}
+ /* ************************************/
+/* header and nav css start from here */
+/* ************************************/
+.nav_items {
+  gap: 20px; 
+  align-items: center;
 }

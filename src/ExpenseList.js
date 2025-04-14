@@ -19,7 +19,7 @@ const ExpenseList = () => {
 
   return (
     <div className="expense-list">
-      <h3>Your Expenses</h3>
+      <h3>Recent Expenses</h3>
       <ul>
         {expenses.length === 0 ? (
           <li>No expenses added yet!</li>

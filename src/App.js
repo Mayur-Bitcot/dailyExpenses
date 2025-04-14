@@ -1,27 +1,27 @@
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
+import TransactionHistory from './TransactionHistory';
+import Analytics from './Analytics';
 import ExpenseForm from "./ExpenseForm";
-import IncomeForm from "./IncomeForm";
-import Analytics from "./Analytics"; // Import Analytics component
-import React, { useState } from "react";
+import Layout from "./Layout";
 
 const App = () => {
-  const [showIncomeForm, setShowIncomeForm] = useState(false);
-
-  const toggleForm = () => {
-    setShowIncomeForm(!showIncomeForm); // Toggle between forms
-  };
-
+  
   return (
     <div className="app">
-      <button onClick={toggleForm}>
-        {showIncomeForm ? "Go to Expense Form" : "Go to Income Form"}
-      </button>
-
-      {/* Display the respective form based on the toggle */}
-      {showIncomeForm ? <IncomeForm /> : <ExpenseForm />}
-
-      {/* Always show the Analytics section */}
-      <Analytics />
+        <BrowserRouter>
+          <Layout>
+              <Routes>
+                <Route path="/" element={<ExpenseForm />} />
+                <Route path="/analytics" element={<Analytics />} />              
+                <Route path="/history" element={<TransactionHistory />} />              
+              </Routes>                   
+          </Layout>
+        </BrowserRouter>
     </div>
   );
 };
