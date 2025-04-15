@@ -3,14 +3,21 @@ import { database } from "./firebase";
 import { ref, push } from "firebase/database";
 import ExpenseList from "./ExpenseList";
 import { Container } from "react-bootstrap";
+import { useAuth } from "./AuthContext"; // Import useAuth to get currentUser
 
 const ExpenseForm = () => {
   const [expenseName, setExpenseName] = useState("");
   const [expenseAmount, setExpenseAmount] = useState("");
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const { currentUser } = useAuth(); // Get the current logged-in user
 
   const addExpense = () => {
+    if (!currentUser) {
+      setError("You need to be logged in to add an expense.");
+      return;
+    }
+
     const amount = parseFloat(expenseAmount);
 
     if (!expenseName || isNaN(amount) || amount <= 0) {
@@ -22,12 +29,12 @@ const ExpenseForm = () => {
     const newExpense = {
       name: expenseName,
       amount: expenseAmount,
-      timestamp: Date.now() // ✅ This records the current time of the expense
+      timestamp: Date.now(), // ✅ This records the current time of the expense
     };
 
     setError("");    
 
-    const expensesRef = ref(database, "expenses");
+    const expensesRef = ref(database, `expenses/${currentUser.uid}`); // Save to user-specific path
     push(expensesRef, newExpense)
       .then(() => {
         setExpenseName("");
@@ -44,26 +51,26 @@ const ExpenseForm = () => {
   return (
     <div className="expense-form">
       <Container>
-      <h2>Add an Expense</h2>
+        <h2>Add an Expense</h2>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
 
-      <input
-        type="text"
-        placeholder="Expense Name"
-        value={expenseName}
-        onChange={(e) => setExpenseName(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Amount"
-        value={expenseAmount}
-        onChange={(e) => setExpenseAmount(e.target.value)}
-      />
-      <button onClick={addExpense}>Add Expense</button>
+        <input
+          type="text"
+          placeholder="Expense Name"
+          value={expenseName}
+          onChange={(e) => setExpenseName(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Amount"
+          value={expenseAmount}
+          onChange={(e) => setExpenseAmount(e.target.value)}
+        />
+        <button onClick={addExpense}>Add Expense</button>
 
-      <ExpenseList />
+        <ExpenseList />
       </Container>  
     </div>
   );

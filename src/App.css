@@ -178,3 +178,262 @@ table th {
   gap: 20px; 
   align-items: center;
 }
+.main_navbar {
+  padding: 25px 0;  
+}
+.user_login_button_box {
+  position: relative;
+  display: flex; 
+  align-items: center;
+}
+.user_name {
+  position: absolute;
+  top: -15px;
+  width: max-content;
+  font-size: 13px;
+  right: 0px;
+}
+ /* ************************************/
+/* income form start from here */
+/* ************************************/
+.income-form {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  box-sizing: border-box;
+}
+
+.income-form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-weight: 600;
+}
+
+.income-form input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.income-form input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.income-form button {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.income-form button:hover {
+  background-color: #0056b3;
+}
+
+.list_income {
+  margin-top: 30px;
+}
+
+.income-form ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.income-form li {
+  background-color: #f8f9fa;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #333;
+  border-left: 4px solid #007bff;
+}
+
+/* ✅ Responsive styles for smaller screens */
+@media (max-width: 600px) {
+  .income-form {
+    margin: 20px 15px;
+    padding: 20px;
+  }
+
+  .income-form h2 {
+    font-size: 20px;
+  }
+
+  .income-form input,
+  .income-form button {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .income-form li {
+    font-size: 15px;
+    padding: 10px 12px;
+  }
+}
+/* ************************************/
+/* income form end from here */
+/* ************************************/
+
+/* ************************************/
+/* transaction history css start from here */
+/* ************************************/
+.transaction-history {
+  padding: 40px 20px;
+  background-color: #f4f6f9;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+.transaction-history h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 26px;
+  color: #333;
+}
+
+.transaction-history ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.transaction-history li {
+  background-color: #fff;
+  border-left: 5px solid #007bff;
+  padding: 16px 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.transaction-history li:hover {
+  transform: translateY(-2px);
+}
+
+.transaction-history li strong {
+  color: #007bff;
+  font-weight: 600;
+}
+
+.transaction-history li small {
+  color: #666;
+  display: block;
+  margin-top: 5px;
+}
+
+/* ✅ Responsive Adjustments */
+@media (max-width: 600px) {
+  .transaction-history {
+    padding: 25px 15px;
+  }
+
+  .transaction-history h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .transaction-history li {
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+
+  .transaction-history li strong {
+    font-size: 16px;
+  }
+
+  .transaction-history li small {
+    font-size: 13px;
+  }
+}
+/* ************************************/
+/* transaction history css end from here */
+/* ************************************/
+
+/* ************************************/
+/* analytics css start from here */
+/* ************************************/
+.analytics_box {
+  padding: 40px 20px;
+  background-color: #eef2f7;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+.analytics_box h2 {
+  text-align: center;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.analytics_box table {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.analytics_box th,
+.analytics_box td {
+  padding: 16px 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.analytics_box thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.analytics_box tbody tr {
+  border-top: 1px solid #ddd;
+}
+
+.analytics_box td {
+  font-weight: 600;
+  color: #333;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 600px) {
+  .analytics_box {
+    padding: 25px 10px;
+  }
+
+  .analytics_box h2 {
+    font-size: 22px;
+  }
+
+  .analytics_box th,
+  .analytics_box td {
+    font-size: 16px;
+    padding: 12px 10px;
+  }
+}
+/* ************************************/
+/* analytics css end from here */
+/* ************************************/

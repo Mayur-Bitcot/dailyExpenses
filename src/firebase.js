@@ -1,6 +1,6 @@
-// src/firebase.js
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, push, onValue } from "firebase/database";
+import { getAuth } from "firebase/auth"; // ✅ Add this line
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,4 +17,6 @@ const app = initializeApp(firebaseConfig);
 // Initialize Realtime Database and get a reference
 const database = getDatabase(app);
 
-export { database, ref, push, onValue };
+const auth = getAuth(app);
+
+export { database, ref, push, onValue, auth }; // ✅ Export auth

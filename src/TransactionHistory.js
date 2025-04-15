@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { database } from "./firebase";
 import { ref, onValue } from "firebase/database";
+import { Container } from "react-bootstrap";
 
 const TransactionHistory = () => {
   const [transactions, setTransactions] = useState([]);
@@ -56,6 +57,7 @@ const TransactionHistory = () => {
 
   return (
     <div className="transaction-history">
+      <Container>
       <h2>Transaction History</h2>
 
       {transactions.length === 0 ? (
@@ -71,6 +73,7 @@ const TransactionHistory = () => {
           ))}
         </ul>
       )}
+      </Container>
     </div>
   );
 };
