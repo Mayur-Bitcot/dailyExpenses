@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
+
 import TransactionHistory from './TransactionHistory';
 import Analytics from './Analytics';
 import ExpenseForm from "./ExpenseForm";
@@ -11,23 +10,36 @@ import Layout from "./Layout";
 import { AuthProvider } from './AuthContext'; 
 import IncomeForm from "./IncomeForm";
 
+import { auth } from './firebase';
+import OffcanvasExample from './OffcanvasExample';
+import { onAuthStateChanged } from 'firebase/auth';
+
 const App = () => {
-  
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <div className="app">
-        <BrowserRouter>
-        <AuthProvider> 
+    <BrowserRouter>
+      <AuthProvider> 
+        <div className="app">
+          <OffcanvasExample user={user} />
           <Layout>
-              <Routes>
-                <Route path="/" element={<ExpenseForm />} />
-                <Route path="/analytics" element={<Analytics />} />              
-                <Route path="/history" element={<TransactionHistory />} />   
-                <Route path="/credit" element={<IncomeForm />} />              
-              </Routes>                   
+            <Routes>
+              <Route path="/" element={<ExpenseForm />} />
+              <Route path="/analytics" element={<Analytics />} />              
+              <Route path="/history" element={<TransactionHistory />} />   
+              <Route path="/credit" element={<IncomeForm />} />              
+            </Routes>    
           </Layout>
-        </AuthProvider>
-        </BrowserRouter>
-    </div>
+        </div>
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 

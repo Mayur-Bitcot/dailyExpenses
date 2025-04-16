@@ -1,18 +1,50 @@
-// src/OffcanvasExample.js
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Link } from 'react-router-dom';
-import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { Link, useLocation } from 'react-router-dom';
+import {
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  GoogleAuthProvider,
+  signOut
+} from 'firebase/auth';
 import { auth } from './firebase';
 
 function OffcanvasExample({ user }) {
+  const [show, setShow] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Close the offcanvas when the route changes
+    setShow(false);
+  }, [location]);
+
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          console.log("Redirect login success:", result.user);
+        }
+      })
+      .catch((error) => {
+        console.error("Redirect result error:", error);
+      });
+  }, []);
+
   const handleLogin = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).catch((error) => {
-      console.error("Login failed:", error);
-    });
+    if (window.innerWidth < 768) {
+      signInWithRedirect(auth, provider).catch((error) => {
+        console.error("Redirect login failed:", error);
+      });
+    } else {
+      signInWithPopup(auth, provider).catch((error) => {
+        console.error("Popup login failed:", error);
+      });
+    }
   };
 
   const handleLogout = () => {
@@ -22,20 +54,21 @@ function OffcanvasExample({ user }) {
   };
 
   return (
-    <>
-    <header>
-      {['lg'].map((expand) => (
-        <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3 main_navbar">
+    <section>
+      <header>
+        <Navbar expand="lg" className="bg-body-tertiary mb-3 main_navbar">
           <Container>
             <Navbar.Brand href="#">Daily Expenses</Navbar.Brand>
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+            <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg" onClick={() => setShow(true)} />
             <Navbar.Offcanvas
-              id={`offcanvasNavbar-expand-${expand}`}
-              aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+              id="offcanvasNavbar-expand-lg"
+              aria-labelledby="offcanvasNavbarLabel-expand-lg"
               placement="end"
+              show={show}
+              onHide={() => setShow(false)}
             >
               <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                <Offcanvas.Title id="offcanvasNavbarLabel-expand-lg">
                   Menu
                 </Offcanvas.Title>
               </Offcanvas.Header>
@@ -47,29 +80,26 @@ function OffcanvasExample({ user }) {
                   <Link to="/credit" className="nav-link">Credit</Link>
                 </Nav>
 
-                <div className=" text-end user_login_button_box">
+                <div className="text-end user_login_button_box mt-3">
                   {user ? (
                     <>
-                      <div className=" user_name">Welcome, {user.displayName} </div>
-                      <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
+                      <div className="user_name">Welcome, {user.displayName}</div>
+                      <button className="btn btn-outline-danger btn-sm mt-2" onClick={handleLogout}>
                         Logout
                       </button>
-                     
                     </>
                   ) : (
-                    <button className="btn btn-outline-primary btn-sm" onClick={handleLogin}>
+                    <button className="btn btn-outline-primary btn-sm mt-2" onClick={handleLogin}>
                       Login with Google
                     </button>
                   )}
                 </div>
-
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Container>
         </Navbar>
-      ))}
       </header>
-    </>
+    </section>
   );
 }
 
