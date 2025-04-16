@@ -11,7 +11,7 @@ import { AuthProvider } from './AuthContext';
 import IncomeForm from "./IncomeForm";
 
 import { auth } from './firebase';
-import OffcanvasExample from './OffcanvasExample';
+import Header from './Header';
 import { onAuthStateChanged } from 'firebase/auth';
 
 const App = () => {
@@ -28,7 +28,7 @@ const App = () => {
     <BrowserRouter>
       <AuthProvider> 
         <div className="app">
-          <OffcanvasExample user={user} />
+          <Header user={user} />
           <Layout>
             <Routes>
               <Route path="/" element={<ExpenseForm />} />
