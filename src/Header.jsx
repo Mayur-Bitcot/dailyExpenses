@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link, useLocation } from 'react-router-dom';
+
 import {
   signInWithPopup,
   signInWithRedirect,
@@ -14,8 +15,11 @@ import {
 import { auth } from './firebase';
 
 function OffcanvasExample({ user }) {
+
   const [show, setShow] = useState(false);
   const location = useLocation();
+
+
 
   useEffect(() => {
     // Close the offcanvas when the route changes
@@ -80,7 +84,7 @@ function OffcanvasExample({ user }) {
                   <Link to="/credit" className="nav-link">Credit</Link>
                 </Nav>
 
-                <div className="text-end user_login_button_box mt-3">
+                <div className="text-end user_login_button_box">
                   {user ? (
                     <>
                       <div className="user_name">Welcome, {user.displayName}</div>
@@ -89,9 +93,15 @@ function OffcanvasExample({ user }) {
                       </button>
                     </>
                   ) : (
-                    <button className="btn btn-outline-primary btn-sm mt-2" onClick={handleLogin}>
-                      Login with Google
-                    </button>
+                    <>
+                      <button className="btn btn-outline-primary btn-sm " onClick={handleLogin}>
+                        Continue with Google
+                      </button>                    
+
+                      <Link to="/login" className="btn btn-outline-primary btn-sm login_with_email">
+                        Login / Register with Email
+                      </Link>
+                    </>
                   )}
                 </div>
               </Offcanvas.Body>
