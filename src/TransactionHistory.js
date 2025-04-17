@@ -1,37 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { database } from "./firebase";
+import { database, auth } from "./firebase"; // Import auth also
 import { ref, onValue } from "firebase/database";
 import { Container } from "react-bootstrap";
+import { onAuthStateChanged } from "firebase/auth";
 
 const TransactionHistory = () => {
   const [transactions, setTransactions] = useState([]);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
-    const expensesRef = ref(database, "expenses");
-    const incomeRef = ref(database, "incomes");
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUserId(currentUser.uid);
+      } else {
+        setUserId(null);
+      }
+    });
 
-    const fetchTransactions = async () => {
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    const expensesRef = ref(database, `expenses/${userId}`);
+    const incomesRef = ref(database, `incomes/${userId}`);
+
+    const fetchTransactions = () => {
       const allTransactions = [];
 
+      // Fetch Expenses
       onValue(expensesRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          for (let key in data) {
+        allTransactions.length = 0; // Clear array first
+
+        const expensesData = snapshot.val();
+        if (expensesData) {
+          for (let key in expensesData) {
             allTransactions.push({
               id: key,
-              ...data[key],
+              ...expensesData[key],
               type: "Expense",
             });
           }
         }
 
-        onValue(incomeRef, (snapshot) => {
-          const data = snapshot.val();
-          if (data) {
-            for (let key in data) {
+        // Fetch Incomes
+        onValue(incomesRef, (snapshot) => {
+          const incomesData = snapshot.val();
+          if (incomesData) {
+            for (let key in incomesData) {
               allTransactions.push({
                 id: key,
-                ...data[key],
+                ...incomesData[key],
                 type: "Income",
               });
             }
@@ -47,7 +67,7 @@ const TransactionHistory = () => {
     };
 
     fetchTransactions();
-  }, []);
+  }, [userId]);
 
   const formatDate = (timestamp) => {
     if (!timestamp) return "No date";
@@ -58,21 +78,21 @@ const TransactionHistory = () => {
   return (
     <div className="transaction-history">
       <Container>
-      <h2>Transaction History</h2>
+        <h2>Transaction History</h2>
 
-      {transactions.length === 0 ? (
-        <p>No transactions yet.</p>
-      ) : (
-        <ul>
-          {transactions.map((item) => (
-            <li key={item.id} style={{ marginBottom: "10px" }}>
-              <strong>{item.type}:</strong> {item.name} - ${item.amount}  
-              <br />
-              <small>Date: {formatDate(item.timestamp)}</small>
-            </li>
-          ))}
-        </ul>
-      )}
+        {transactions.length === 0 ? (
+          <p>No transactions yet.</p>
+        ) : (
+          <ul>
+            {transactions.map((item) => (
+              <li key={item.id} style={{ marginBottom: "10px" }}>
+                <strong>{item.type}:</strong> {item.name} - ${item.amount}
+                <br />
+                <small>Date: {formatDate(item.timestamp)}</small>
+              </li>
+            ))}
+          </ul>
+        )}
       </Container>
     </div>
   );
