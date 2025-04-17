@@ -42,19 +42,21 @@ const ExpenseList = () => {
   return (
     <div className="expense-list">
       <h3>Recent Expenses</h3>
-      <ul>
+      <ul className="expense-list">
         {expenses.length === 0 ? (
           <li>No expenses added yet!</li>
         ) : (
           expenses.map((expense) => (
             <li key={expense.id}>
               {expense.name} - ${expense.amount}
-              <button onClick={() => handleEdit(expense)} style={{ marginLeft: "10px" }}>
-                Edit
-              </button>
-              <button onClick={() => handleDelete(expense.id)} style={{ marginLeft: "5px", color: "red" }}>
-                Delete
-              </button>
+              <div className="expense_actions">
+                <button onClick={() => handleEdit(expense)} style={{ marginLeft: "10px" }}>
+                  Edit
+                </button>
+                <button onClick={() => handleDelete(expense.id)} style={{ marginLeft: "5px", color: "red" }}>
+                  Delete
+                </button>
+              </div>
             </li>
           ))
         )}

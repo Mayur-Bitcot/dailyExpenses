@@ -71,106 +71,6 @@ h1 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.expense-form input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.expense-form button {
-  width: 100%;
-  padding: 10px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.expense-form button:hover {
-  background: #0056b3;
-}
-
-.expense-list {
-  list-style: none;
-  padding: 0;
-}
-
-.expense-item {
-  background: #f9f9f9;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-}
-
-.expense-category {
-  font-weight: bold;
-}
-
-.expense-amount {
-  color: green;
-}
-
-.expense-note {
-  font-style: italic;
-  color: #555;
-}
-
-.expense-date {
-  font-size: 12px;
-  color: #999;
-}
-.expense-list ul {
-  text-align: left;
-}
-
-.analytics {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-.table-container {
-  margin-bottom: 20px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-table th, table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-
-.balance {
-  font-size: 20px;
-  font-weight: bold;
-  color: #333;
-}
-
-.balance h3 {
-  color: green;
-}
-
-.balance h3:before {
-  content: "Balance: ";
-  font-size: 22px;
-}
  /* ************************************/
 /* header and nav css start from here */
 /* ************************************/
@@ -443,3 +343,121 @@ table th {
 /* ************************************/
 /* analytics css end from here */
 /* ************************************/
+
+/* ************************************/
+/* add expenses css start from here */
+/* ************************************/
+.expense_actions {
+  display: flex;  
+  padding: 0;
+  width: 300px;
+  margin: 0px -10px;
+}
+ul.expense-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.expense-form input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.expense-form button {
+  width: 100%;
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.expense-form button:hover {
+  background: #0056b3;
+}
+
+.expense-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.expense-item {
+  background: #f9f9f9;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.expense-category {
+  font-weight: bold;
+}
+
+.expense-amount {
+  color: green;
+}
+
+.expense-note {
+  font-style: italic;
+  color: #555;
+}
+
+.expense-date {
+  font-size: 12px;
+  color: #999;
+}
+.expense-list ul {
+  text-align: left;
+  
+}
+
+.analytics {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.table-container {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.balance {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.balance h3 {
+  color: green;
+}
+
+.balance h3:before {
+  content: "Balance: ";
+  font-size: 22px;
+}
