@@ -48,7 +48,7 @@ const ExpenseList = () => {
         ) : (
           expenses.map((expense) => (
             <li key={expense.id}>
-              {expense.name} - ${expense.amount}
+              {expense.name} - ₹{expense.amount}
               <div className="expense_actions">
                 <button onClick={() => handleEdit(expense)} style={{ marginLeft: "10px" }}>
                   Edit

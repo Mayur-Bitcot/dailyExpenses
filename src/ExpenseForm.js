@@ -26,13 +26,15 @@ const ExpenseForm = () => {
       return;
     }
 
+    // ✅ Now userId is also included inside the object
     const newExpense = {
       name: expenseName,
       amount: expenseAmount,
-      timestamp: Date.now(), // ✅ This records the current time of the expense
+      timestamp: Date.now(),
+      userId: currentUser.uid,
     };
 
-    setError("");    
+    setError("");
 
     const expensesRef = ref(database, `expenses/${currentUser.uid}`); // Save to user-specific path
     push(expensesRef, newExpense)
@@ -71,7 +73,7 @@ const ExpenseForm = () => {
         <button onClick={addExpense}>Add Expense</button>
 
         <ExpenseList />
-      </Container>  
+      </Container>
     </div>
   );
 };

@@ -1,33 +1,42 @@
 import React, { useState } from "react";
-import { database } from "./firebase"; // Ensure Firebase is correctly configured
+import { database } from "./firebase";
 import { ref, push } from "firebase/database";
-import IncomeList from "./IncomeList"; // Import the IncomeList component
+import IncomeList from "./IncomeList"; 
+import { useAuth } from "./AuthContext"; // Import useAuth to get currentUser
 
 const IncomeForm = () => {
   const [incomeName, setIncomeName] = useState("");
   const [incomeAmount, setIncomeAmount] = useState("");
+  const { currentUser } = useAuth(); // ✅ Get logged-in user
 
   const addIncome = () => {
-    if (!incomeName || !incomeAmount) {
-      alert("Please enter a valid income source and amount.");
+    if (!currentUser) {
+      alert("You need to be logged in to add income.");
+      return;
+    }
+
+    if (!incomeName || !incomeAmount || isNaN(incomeAmount) || Number(incomeAmount) <= 0) {
+      alert("Please enter a valid income source and amount greater than 0.");
       return;
     }
 
     const newIncome = {
       name: incomeName,
-      amount: Number(incomeAmount), // Convert to number before saving
+      amount: Number(incomeAmount),
+      timestamp: Date.now(),
+      userId: currentUser.uid, // ✅ Attach userId
     };
 
-    // Push new income to Firebase Realtime Database under "incomes"
-    const incomeRef = ref(database, "incomes");
+    const incomeRef = ref(database, `incomes/${currentUser.uid}`); // ✅ Save under user's UID
     push(incomeRef, newIncome)
       .then(() => {
-        setIncomeName(""); // Clear form fields
+        setIncomeName("");
         setIncomeAmount("");
         alert("Income added successfully!");
       })
       .catch((error) => {
         console.error("Error adding income: ", error);
+        alert("Error adding income. Please try again.");
       });
   };
 
@@ -48,7 +57,7 @@ const IncomeForm = () => {
       />
       <button onClick={addIncome}>Add Income</button>
 
-      {/* Include the IncomeList component below the form */}
+      {/* Income List */}
       <IncomeList className="list_income" />
     </div>
   );

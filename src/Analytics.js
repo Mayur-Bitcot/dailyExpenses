@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import { database } from "./firebase";
 import { ref, onValue } from "firebase/database";
 import { Container } from "react-bootstrap";
+import { useAuth } from "./AuthContext"; // ✅ Import useAuth
 
 const Analytics = () => {
   const [totals, setTotals] = useState({ income: 0, expenses: 0 });
+  const { currentUser } = useAuth(); // ✅ Get logged-in user
 
   useEffect(() => {
+    if (!currentUser) return; // ✅ Don't run if not logged in
+
     const fetchData = (path, key) => {
-      const dataRef = ref(database, path);
+      const dataRef = ref(database, `${path}/${currentUser.uid}`); // ✅ Path with user ID
       onValue(dataRef, (snapshot) => {
         const data = snapshot.val();
         console.log(`${key} raw data:`, data); // Debug log
@@ -26,14 +30,14 @@ const Analytics = () => {
 
     fetchData("incomes", "income");
     fetchData("expenses", "expenses");
-  }, []);
+  }, [currentUser]); // ✅ Run when currentUser is ready
 
   const availableBalance = totals.income - totals.expenses;
 
   return (
     <div className="analytics_box">
       <Container>
-        <h2>Analytics Summary</h2>
+        <h2>Balance Sheet</h2>
         <table border="1">
           <thead>
             <tr>

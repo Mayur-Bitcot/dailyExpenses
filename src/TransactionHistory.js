@@ -86,7 +86,7 @@ const TransactionHistory = () => {
           <ul>
             {transactions.map((item) => (
               <li key={item.id} style={{ marginBottom: "10px" }}>
-                <strong>{item.type}:</strong> {item.name} - ${item.amount}
+                <strong>{item.type}:</strong> {item.name} - ₹{item.amount}
                 <br />
                 <small>Date: {formatDate(item.timestamp)}</small>
               </li>
