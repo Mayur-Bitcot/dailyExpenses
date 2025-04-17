@@ -78,10 +78,10 @@ function OffcanvasExample({ user }) {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3 nav_items">
-                  <Link to="/" className="nav-link">Home</Link>
-                  <Link to="/analytics" className="nav-link">Analytics</Link>
+                  <Link to="/" className="nav-link">Expense</Link>
+                  <Link to="/analytics" className="nav-link">Summary</Link>
                   <Link to="/history" className="nav-link">History</Link>
-                  <Link to="/credit" className="nav-link">Credit</Link>
+                  <Link to="/credit" className="nav-link">Income</Link>
                 </Nav>
 
                 <div className="text-end user_login_button_box">
