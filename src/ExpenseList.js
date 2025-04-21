@@ -3,7 +3,7 @@ import { database } from "./firebase";
 import { ref, onValue, remove } from "firebase/database";
 import { useAuth } from "./AuthContext";
 
-const ExpenseList = () => {
+const ExpenseList = ({ setEditingExpense, setExpenseData, setAmountData, setCategoryData }) => {
   const [expenses, setExpenses] = useState([]);
   const { currentUser } = useAuth();
 
@@ -29,14 +29,16 @@ const ExpenseList = () => {
           console.log("Expense deleted successfully.");
         })
         .catch((error) => {
-          console.error("Error deleting expense: ", error);
+          console.error("Error deleting expense:", error);
         });
     }
   };
 
   const handleEdit = (expense) => {
-    // For now, just logging. You can pass this data to a parent/form component.
-    console.log("Edit expense:", expense);
+    setEditingExpense(expense);
+    setExpenseData(expense.name);
+    setAmountData(expense.amount);
+    setCategoryData(expense.category || "");
   };
 
   return (
@@ -48,12 +50,15 @@ const ExpenseList = () => {
         ) : (
           expenses.map((expense) => (
             <li key={expense.id}>
-              {expense.name} - ₹{expense.amount}
+              <div className="expense_details">
+              {expense.name} - ₹{expense.amount} ({expense.category})
+              </div>
+                
               <div className="expense_actions">
-                <button onClick={() => handleEdit(expense)} style={{ marginLeft: "10px" }}>
+                <button onClick={() => handleEdit(expense)} >
                   Edit
                 </button>
-                <button onClick={() => handleDelete(expense.id)} style={{ marginLeft: "5px", color: "red" }}>
+                <button onClick={() => handleDelete(expense.id)} style={{  color: "#fff" }}>
                   Delete
                 </button>
               </div>

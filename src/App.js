@@ -12,6 +12,7 @@ import { auth } from './firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import Login from './Login';
 import Register from './Register';
+import "./InsertCategories";
 
 const AppContent = () => {
   const [user, setUser] = useState(null);  

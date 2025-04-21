@@ -156,7 +156,9 @@ h1 {
 .list_income {
   margin-top: 30px;
 }
-
+button.add_update_btn {
+  margin-top: 10px;
+}
 .income-form ul {
   padding: 0;
   list-style-type: none;
@@ -308,6 +310,7 @@ h1 {
   padding: 16px 20px;
   text-align: center;
   font-size: 18px;
+  color: rebeccapurple;
 }
 
 .analytics_box thead {
@@ -356,29 +359,49 @@ h1 {
 /* ************************************/
 /* add expenses css start from here */
 /* ************************************/
+.expense-form select {
+  word-wrap: normal;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  height: 46px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  outline: none;
+}
 .income-list {
   padding-top: 20px;
 }
 .expense_actions {
   display: flex;
   padding: 0;
-  width: 300px;
-  margin: 0px -10px;
+  width: 300px;  
   gap: 10px;
-  margin-top: 10px;
+ 
 }
 ul.expense-list li {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 10px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  padding: 15px;
+  background: antiquewhite;
+  border-radius: 10px;
+}.expense_details {
+  flex: 1;
 }
-
 .expense-form input {
   width: 100%;
   padding: 10px;
   margin: 8px 0;
   border: 1px solid #ddd;
   border-radius: 5px;
+  outline: none;
 }
 
 .expense-form button {
@@ -474,4 +497,24 @@ table th {
 .balance h3:before {
   content: "Balance: ";
   font-size: 22px;
+}
+/**************************************/
+/* footer css start from here */
+/**************************************/
+footer {
+  background: #241e1e;
+  color: #fff;
+  padding: 60px 20px;
+}
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  ul.expense-list li {
+    flex-direction: column;
+    align-items: flex-start;    
+  }
+  
 }
