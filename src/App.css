@@ -74,6 +74,9 @@ h1 {
  /* ************************************/
 /* header and nav css start from here */
 /* ************************************/
+button.navbar-toggler {
+  box-shadow: none;
+}
 .login_with_email {
   padding: 4px 10px;  
   margin: 0;
@@ -102,6 +105,22 @@ h1 {
  /* ************************************/
 /* income form start from here */
 /* ************************************/
+.income-list .expense_actions button img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+.income-list .expense_actions button {  
+  background: transparent;
+  width: auto;
+  display: flex;
+  color: #000;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  justify-content: space-between;
+
+}
 .income-form {
   max-width: 500px;
   margin: 40px auto;
@@ -150,7 +169,7 @@ h1 {
 }
 
 .income-form button:hover {
-  background-color: #0056b3;
+  background-color: #007bff;
 }
 
 .list_income {
@@ -172,6 +191,8 @@ button.add_update_btn {
   font-size: 16px;
   color: #333;
   border-left: 4px solid #007bff;
+  display: flex;
+  align-items: center;
 }
 
 /* ✅ Responsive styles for smaller screens */
@@ -359,6 +380,25 @@ button.add_update_btn {
 /* ************************************/
 /* add expenses css start from here */
 /* ************************************/
+.add_update_btn_box {
+  text-align: center;
+}
+button.add_update_btn {
+  margin-top: 10px;
+  padding: 10px 30px;
+  background: #007bff;
+  border-radius: 8px;
+  border: 0;
+  color: #fff;
+}
+.expense-form button.delete_button img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+.expense-form {
+  padding: 60px 20px;
+}
 .expense-form select {
   word-wrap: normal;
   width: 100%;
@@ -379,8 +419,10 @@ button.add_update_btn {
 .expense_actions {
   display: flex;
   padding: 0;
-  width: 300px;  
+  width: auto;  
   gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
  
 }
 ul.expense-list li {
@@ -404,19 +446,27 @@ ul.expense-list li {
   outline: none;
 }
 
-.expense-form button {
-  width: 100%;
+.expense-form .expense_actions button {
+  width: auto;
   padding: 10px;
-  background: #007bff;
-  color: white;
+  background: transparent;
+  color: #000;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  justify-content: space-between;
 }
+.expense-form .expense_actions button:hover{
+  background: #f0f0f0;
+} 
 
 .expense-form button:hover {
-  background: #0056b3;
+  background: #007bff;
 }
 
 .expense-list {

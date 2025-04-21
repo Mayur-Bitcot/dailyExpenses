@@ -77,7 +77,7 @@ function OffcanvasExample({ user }) {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3 nav_items">
+                <Nav className="justify-content-end flex-grow-1 nav_items">
                   <Link to="/" className="nav-link">Expense</Link>
                   <Link to="/analytics" className="nav-link">Summary</Link>
                   <Link to="/history" className="nav-link">History</Link>
@@ -88,7 +88,7 @@ function OffcanvasExample({ user }) {
                   {user ? (
                     <>
                       <div className="user_name">Welcome, {user.displayName}</div>
-                      <button className="btn btn-outline-danger btn-sm mt-2" onClick={handleLogout}>
+                      <button className="btn btn-outline-danger btn-sm" onClick={handleLogout}>
                         Logout
                       </button>
                     </>

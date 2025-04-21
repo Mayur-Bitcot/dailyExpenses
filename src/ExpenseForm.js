@@ -5,6 +5,7 @@ import ExpenseList from "./ExpenseList";
 import { Container } from "react-bootstrap";
 import { useAuth } from "./AuthContext";
 
+
 const ExpenseForm = () => {
   const [expenseName, setExpenseName] = useState("");
   const [expenseAmount, setExpenseAmount] = useState("");
@@ -87,7 +88,7 @@ const ExpenseForm = () => {
   return (
     <div className="expense-form">
       <Container>
-        <h2>{editingExpense ? "Edit Expense" : "Add an Expense"}</h2>
+        <h2>{editingExpense ? "Edit Expense" : "Add Your Expense"}</h2>
 
         {error && <p style={{ color: "red" }}>{error}</p>}
         {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
@@ -125,10 +126,12 @@ const ExpenseForm = () => {
             onChange={(e) => setCustomCategory(e.target.value)}
           />
         )}
-
-        <button onClick={handleSave} className="add_update_btn">
-          {editingExpense ? "Update Expense" : "Add Expense"}
-        </button>
+        
+        <div className="add_update_btn_box">
+          <button onClick={handleSave} className="add_update_btn">
+            {editingExpense ? "Update Expense" : "Add Expense"}          
+          </button>
+        </div>
 
         <ExpenseList setEditingExpense={setEditingExpense} setExpenseData={setExpenseName} setAmountData={setExpenseAmount} setCategoryData={setExpenseCategory} />
       </Container>
